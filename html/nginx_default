@@ -1,0 +1,34 @@
+server {
+    # Escuchamos todas las conexiones en el puerto 80    
+    listen 80 default;
+
+    # Carpeta donde reside el contenido estático
+    root /code;
+
+    index index.html;
+
+    # Definimos la acción a tomar cuando sea un error 404, referido al location @custom404
+    error_page 404 @custom404;
+
+    # Compresión GZIP para reducir el uso de ancho de banda
+    gzip             on;
+    gzip_comp_level  2;
+    gzip_min_length  1000;
+    gzip_proxied     expired no-cache no-store private auth;
+    gzip_types       text/plain application/x-javascript text/xml text/css application/xml;
+
+    # Redirección con código 301 (redirección permanente)
+    location @custom404 {
+        #Reemplazar con el dominio del host
+        rewrite .* https://172.17.0.1 permanent;
+    }
+
+    # Intenta cargar la $uri recibida, y si no la encuentra, carga la redirección a / con 301
+    location / {
+        try_files $uri $uri/ @custom404;
+    }
+
+    # Ficheros de log
+    error_log /var/log/nginx/project_error.log;
+    access_log /var/log/nginx/project_access.log;
+}
