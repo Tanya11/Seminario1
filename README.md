@@ -1,4 +1,4 @@
-# Seminario1
+# Servidor web con nginx
 Contenido de fase 1 del proyecto de seminario de sistemas vacaciones de junio 2019
 
 
