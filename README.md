@@ -8,6 +8,7 @@ apt-get install docker.io
 $ mkdir paginadocker
  Ingresar al archivo y colocar lo siguiente
 $nano Dockerfile
+
 Dockerfile
 
 FROM ubuntu:18.04
